@@ -1,26 +1,147 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f1f1ef;
+  --foreground: #0d0d0d;
+
+  /* Brand palette (purple) */
+  --brand: #9f1e9b;
+  --brand-dark: #6a0967;
+  --brand-deep: #490247;
+  --brand-light: #e552e1;
+  --brand-lighter: #fca8ff;
+  --brand-pale: #f0ddeb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-light: var(--brand-light);
+  --color-brand-lighter: var(--brand-lighter);
+  --color-brand-pale: var(--brand-pale);
+  --color-brand-yellow: #ffc417;
+  --color-pale-yellow: #d6a800;
+  --color-tape: #cdb37a;
+  --font-sans: var(--font-outfit-local);
+  --font-outfit: var(--font-outfit-local);
+  --font-archivo: var(--font-archivo-local);
+  --font-display: var(--font-archivo-local);
+  --font-hand: var(--font-kalam), "Segoe Script", "Bradley Hand", cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Never scroll sideways: decorations that poke past the edge are clipped.
+   `clip` (not `hidden`) keeps position: sticky/fixed working. */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-outfit-local), system-ui, sans-serif;
+}
+
+/* Subtle paper grain */
+.paper-grain {
+  background-color: var(--background);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Torn paper note */
+.torn-note {
+  background: linear-gradient(180deg, #e9e9e7, #dcdcda);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  clip-path: polygon(
+    0% 6%,
+    6% 0%,
+    14% 4%,
+    22% 1%,
+    31% 5%,
+    40% 0%,
+    50% 4%,
+    60% 1%,
+    70% 5%,
+    80% 0%,
+    90% 4%,
+    100% 1%,
+    99% 30%,
+    100% 60%,
+    98% 95%,
+    90% 100%,
+    80% 96%,
+    70% 100%,
+    60% 96%,
+    50% 100%,
+    40% 95%,
+    30% 100%,
+    20% 96%,
+    10% 100%,
+    1% 96%,
+    0% 60%,
+    2% 30%
+  );
+}
+
+.tape {
+  background: rgba(205, 179, 122, 0.85);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Sticker wordmark: thick green outline behind the fill + thin light rim */
+.logo-sticker > span {
+  -webkit-text-stroke: 0.26em var(--brand);
+  paint-order: stroke fill;
+  padding-inline: 0.12em;
+}
+.logo-sticker {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 3px 4px rgba(0, 0, 0, 0.18));
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+.animate-bob {
+  animation: bob 1.6s ease-in-out infinite;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Horizontal scroller without a visible scrollbar (still swipeable/keyboard scrollable) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sections receive programmatic focus from the footer nav; no outline box needed */
+section[tabindex="-1"]:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bob {
+    animation: none;
+  }
 }

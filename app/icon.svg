@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Sticker-style wordmark, matching the hero logo -->
+  <g transform="rotate(-8 32 32)" font-family="Archivo, 'Arial Black', Helvetica, Arial, sans-serif" font-weight="900" text-anchor="middle" letter-spacing="-0.6" stroke="#9f1e9b" stroke-width="5" stroke-linejoin="round" paint-order="stroke fill">
+    <text x="35" y="22" font-size="15" fill="#ffffff">state of</text>
+    <text x="32" y="37" font-size="15" fill="#ffc417">innovation</text>
+    <text x="31" y="52" font-size="15" fill="#ffffff">report</text>
+  </g>
+</svg>
