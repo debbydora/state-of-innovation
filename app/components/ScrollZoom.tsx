@@ -25,6 +25,7 @@ export default function ScrollZoom({
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState({ scale: 1, step: 0 });
 
   useEffect(() => {
@@ -38,8 +39,14 @@ export default function ScrollZoom({
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const rect = wrap.getBoundingClientRect();
-      const travel = rect.height - vh;
-      const p = travel > 0 ? Math.max(0, Math.min(1, -rect.top / travel)) : 0;
+      const stage = stageRef.current;
+      const stageH = stage?.offsetHeight ?? vh;
+      const stageTop = stage ? parseFloat(getComputedStyle(stage).top) || 0 : 0;
+      const travel = rect.height - stageH;
+      const p =
+        travel > 0
+          ? Math.max(0, Math.min(1, (stageTop - rect.top) / travel))
+          : 0;
 
       // Steps: resting → 1st scroll → 2nd scroll → 3rd (fills the view)
       const step = p < 0.02 ? 0 : Math.min(3, Math.floor(p * 3.999) + 1);
@@ -76,9 +83,13 @@ export default function ScrollZoom({
     // Reduced motion: no pinning, no zoom, it just sits in the page.
     <div
       ref={wrapRef}
-      className={`relative sm:h-[320vh] motion-reduce:h-auto ${className}`}
+      className={`relative h-[200svh] sm:h-[320vh] motion-reduce:h-auto ${className}`}
     >
-      <div className="sticky top-0 flex sm:h-dvh flex-col items-center justify-center gap-8 motion-reduce:static motion-reduce:h-auto">
+      {/* Phones: a shorter stage centred in the view, so there's less empty space around the video */}
+      <div
+        ref={stageRef}
+        className="sticky top-[25svh] flex h-[50svh] flex-col items-center justify-center gap-5 sm:top-0 sm:h-dvh sm:gap-8 motion-reduce:static motion-reduce:h-auto"
+      >
         {title && (
           <div
             className="mx-auto w-full max-w-4xl transition-opacity duration-500 motion-reduce:transition-none"
@@ -89,7 +100,7 @@ export default function ScrollZoom({
         )}
         <div
           ref={boxRef}
-          className="w-full max-w-4xl scale-(--zoom) transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:scale-100 motion-reduce:transition-none"
+          className="w-[72%] max-w-4xl scale-(--zoom) sm:w-[80%] lg:w-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:scale-100 motion-reduce:transition-none"
           style={{ "--zoom": zoom.scale } as React.CSSProperties}
         >
           {children}

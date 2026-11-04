@@ -12,8 +12,8 @@ import HeroIntro from "./components/HeroIntro";
 export default function Home() {
   return (
     <>
-      {/* Bottom padding = footer height, so the fixed footer never covers content */}
-      <main className="flex-1 pb-14 sm:pb-16 lg:pb-18">
+      {/* Footer-height bottom padding lives on the last section so it keeps its dark background */}
+      <main className="flex-1">
         <Hero />
         <BuildersDemography />
         <BuildingInNigeria />

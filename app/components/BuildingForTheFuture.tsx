@@ -112,7 +112,7 @@ export default function BuildingForTheFuture() {
     <section
       id="future"
       aria-labelledby="future-heading"
-      className="overflow-x-clip bg-[#1D141C] px-4 pt-16 text-white sm:px-6 md:pt-28"
+      className="overflow-x-clip bg-[#1D141C] px-4 pt-16 pb-14 text-white sm:px-6 sm:pb-16 md:pt-28 lg:pb-18"
     >
       {/* 07 header */}
       <div className="mx-auto max-w-5xl ">
@@ -192,7 +192,7 @@ export default function BuildingForTheFuture() {
 
       {/* Documentary — pins on arrival, then zooms in 3 scroll steps */}
       <ScrollZoom
-        className="mt-20 md:mt-32"
+        className="mt-10 sm:mt-20 md:mt-32"
         title={
           <h3 className="font-archivo text-[clamp(1.5rem,4.5vw,3rem)] font-bold leading-tight">
             Watch the full documentary below
@@ -225,7 +225,7 @@ export default function BuildingForTheFuture() {
       </ScrollZoom>
 
       {/* CTA — diagonal bands come from behindBg.png */}
-      <div className="relative -mx-4 mt-24 bg-[#1D141C] bg-[url('/images/behindBg.png')] bg-cover bg-center bg-no-repeat px-4 py-16 sm:-mx-6 sm:px-6 md:mt-32 md:py-24 lg:py-28 mb-32">
+      <div className="relative -mx-4 mt-8 sm:mt-24 bg-[#1D141C] bg-[url('/images/behindBg.png')] bg-cover bg-center bg-no-repeat px-4 py-16 sm:-mx-6 sm:px-6 md:mt-32 md:py-24 lg:py-28 mb-32">
         <div className="relative mx-auto max-w-4xl">
           <div className="border-2 relative  z-10 border-black bg-[#F9F7FA] px-5 py-10 text-center text-neutral-950 shadow-[8px_8px_0_0_var(--color-brand-yellow),8px_8px_0_2px_#000] sm:px-12 sm:py-16 lg:py-20">
             <h3 className="font-archivo text-[clamp(1.75rem,4.5vw,3rem)] font-bold leading-tight tracking-tight">
