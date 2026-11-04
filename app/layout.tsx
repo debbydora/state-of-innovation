@@ -75,6 +75,11 @@ export const metadata: Metadata = {
   title: "State of Innovation Report",
   description:
     "What does it actually take to build? Insights from builders across Nigeria.",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
