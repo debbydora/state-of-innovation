@@ -17,11 +17,13 @@ export default function Logo({ className = "" }: LogoProps) {
     >
       <span
         aria-hidden
-        className="logo-sticker flex rotate-[-8deg] flex-col items-center font-display font-black lowercase leading-[0.78] tracking-[-0.06em] transition-transform duration-300 text-[clamp(1.25rem,3.2vw,2.125rem)]"
+        className="logo-sticker flex rotate-[-8deg] flex-col items-center font-display font-black lowercase leading-[0.78] tracking-[-0.06em] transition-transform duration-300 text-[clamp(1.25rem,3.2vw,2.2rem)]"
       >
         <span className="translate-x-[0.35em] text-white">state of</span>
-        <span className="text-brand-yellow">innovation</span>
-        <span className="translate-x-[-0.1em] text-white">report</span>
+        <span className="text-brand-yellow mt-px">innovation</span>
+        <span className="translate-x-[-0.1em] text-white mt-px">
+          report 2026
+        </span>
       </span>
     </Link>
   );
