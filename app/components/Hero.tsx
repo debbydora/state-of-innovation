@@ -43,7 +43,10 @@ export default function Hero() {
       {/* Header */}
       <header className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-4 gap-y-6 px-6 pt-10 md:flex-row md:justify-center md:pt-8">
         <Logo />
-        <DownloadReport buttonClassName="border-[1.5px] border-black bg-brand px-4 py-2.5 text-sm text-white transition hover:bg-brand-dark focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand md:absolute md:right-6 md:py-3 lg:right-10" />
+        {/* Tablet & desktop: in the header. Phones get it above "Explore the findings". */}
+        <div className="hidden md:contents">
+          <DownloadReport buttonClassName="border-[1.5px] border-black bg-brand px-4 py-2.5 text-sm text-white transition hover:bg-brand-dark focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand md:absolute md:right-6 md:py-3 lg:right-10" />
+        </div>
       </header>
 
       {/* Headline */}
@@ -96,6 +99,10 @@ export default function Hero() {
           We asked people building products, businesses and research projects
           across Nigeria what it takes to start—and what helps them keep going.
         </p>
+
+        <div className="mt-8 flex justify-center md:hidden">
+          <DownloadReport buttonClassName="border-[1.5px] border-black bg-brand px-4 py-2.5 text-sm text-white transition hover:bg-brand-dark focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand" />
+        </div>
 
         <p className="mt-8 inline-flex flex-col items-center gap-1 text-sm font-medium md:mt-16 lg:mt-32">
           Explore the findings
