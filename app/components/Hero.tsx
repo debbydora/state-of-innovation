@@ -41,7 +41,7 @@ export default function Hero() {
       />
 
       {/* Header */}
-      <header className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-4 gap-y-6 px-6 pt-6 md:flex-row md:justify-center md:pt-8">
+      <header className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-4 gap-y-6 px-6 pt-10 md:flex-row md:justify-center md:pt-8">
         <Logo />
         <DownloadReport buttonClassName="border-[1.5px] border-black bg-brand px-4 py-2.5 text-sm text-white transition hover:bg-brand-dark focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand md:absolute md:right-6 md:py-3 lg:right-10" />
       </header>

@@ -1,28 +1,28 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { ApiError, requestReport } from "../lib/api";
 
 /** Single place to change the report file / URL. */
 export const REPORT_PDF = "/state-of-innovation-report.pdf";
 
-/**
- * "Download the full report" button + lead-capture modal.
- * Uses the native <dialog> (focus trap, Esc to close, inert background).
- */
 export default function DownloadReport({
-  reportUrl = REPORT_PDF,
   buttonClassName = "",
 }: {
+  /** @deprecated The report is now emailed by the API; kept so existing usages compile. */
   reportUrl?: string;
   buttonClassName?: string;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [status, setStatus] = useState<"idle" | "sending">("idle");
+  const [error, setError] = useState("");
+  const [toast, setToast] = useState<string | null>(null);
   const titleId = useId();
   const descId = useId();
 
   const open = () => {
     setStatus("idle");
+    setError("");
     dialogRef.current?.showModal();
   };
   const close = () => dialogRef.current?.close();
@@ -36,25 +36,46 @@ export default function DownloadReport({
     return () => d.removeEventListener("close", onClose);
   }, []);
 
+  // Auto-hide the toast
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 8000);
+    return () => clearTimeout(t);
+  }, [toast]);
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.reportValidity()) return;
+    setError("");
     setStatus("sending");
 
-    // TODO: send `data` to your backend / CRM before downloading.
-    // const data = Object.fromEntries(new FormData(form));
-    // await fetch("/api/leads", { method: "POST", body: JSON.stringify(data) });
+    const fd = new FormData(form);
+    const get = (k: string) => String(fd.get(k) ?? "").trim();
+    const payload = {
+      fullName: get("name"),
+      role: get("role"),
+      organisation: get("organisation"),
+      email: get("email"),
+    };
 
-    const a = document.createElement("a");
-    a.href = reportUrl;
-    a.download = "";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    form.reset();
-    setStatus("done");
+    try {
+      const res = await requestReport(payload);
+      form.reset();
+      setStatus("idle");
+      close();
+      setToast(
+        res?.message ||
+          `Thanks! The report is on its way to ${payload.email}. Please check your spam folder if you don't see it.`,
+      );
+    } catch (err) {
+      setStatus("idle");
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    }
   };
 
   const field =
@@ -115,31 +136,7 @@ export default function DownloadReport({
             and what it takes to keep going.
           </p>
 
-          {status === "done" ? (
-            <div role="status" className="mt-12 text-center">
-              <p className="font-archivo text-xl font-extrabold text-brand">
-                Thank you! Your download has started.
-              </p>
-              <p className="mt-2 text-sm text-neutral-700">
-                If it didn&rsquo;t,{" "}
-                <a
-                  href={reportUrl}
-                  download
-                  className="font-semibold text-brand underline underline-offset-2"
-                >
-                  click here to download the report
-                </a>
-                .
-              </p>
-              <button
-                type="button"
-                onClick={close}
-                className="mt-8 border-2 border-black bg-brand px-6 py-3 text-sm text-white hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow sm:text-base"
-              >
-                Close
-              </button>
-            </div>
-          ) : (
+          {
             <form onSubmit={onSubmit} noValidate className="mt-10 sm:mt-16">
               <div className="flex flex-col gap-5 sm:gap-7">
                 <label className="block">
@@ -187,21 +184,74 @@ export default function DownloadReport({
                 </label>
               </div>
 
+              {error && (
+                <p
+                  role="alert"
+                  className="mt-6 border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700"
+                >
+                  {error}
+                </p>
+              )}
+
               <div className="mt-12 flex justify-center sm:mt-18">
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className=" cursor-pointer! border-[1.5px] h-12.5 border-[#7D2465] bg-brand px-4 py-2.5 text-sm text-white transition-colors hover:bg-brand-dark disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow"
+                  aria-busy={status === "sending"}
+                  className=" cursor-pointer! border-[1.5px] h-12.5 border-[#7D2465] bg-brand px-4 py-2.5 text-sm text-white transition-colors hover:bg-brand-dark disabled:cursor-wait! disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow"
                 >
                   {status === "sending"
-                    ? "Preparing download…"
+                    ? "Sending…"
                     : "Download the full report"}
                 </button>
               </div>
             </form>
-          )}
+          }
         </div>
       </dialog>
+
+      {/* Success toast */}
+      <div
+        role="status"
+        aria-live="polite"
+        className="pointer-events-none fixed inset-x-0 top-4 z-200 flex justify-center px-4"
+      >
+        {toast && (
+          <div className="pointer-events-auto flex w-full max-w-md items-start gap-3 border-2 border-black bg-[#FCFCFA] px-4 py-3 text-neutral-950 shadow-[6px_6px_0_0_var(--color-brand-yellow),6px_6px_0_2px_#000] animate-[modal-in_200ms_ease-out] motion-reduce:animate-none">
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="mt-0.5 size-5 shrink-0 text-brand"
+            >
+              <circle cx="12" cy="12" r="10" fill="currentColor" />
+              <path
+                d="M7.5 12.5l3 3 6-6.5"
+                stroke="#fff"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <p className="flex-1 text-sm leading-snug sm:text-base">{toast}</p>
+            <button
+              type="button"
+              onClick={() => setToast(null)}
+              aria-label="Dismiss notification"
+              className="cursor-pointer! -m-1 p-1 text-neutral-600 hover:text-neutral-950"
+            >
+              <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
     </>
   );
 }
