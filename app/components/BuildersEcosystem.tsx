@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Card, BarList, type Bar, DARK, MID, LIGHT } from "./charts";
+import { Card, BarList, type Bar } from "./charts";
 
 /* ---------- Card 1: campus exposure ---------- */
 

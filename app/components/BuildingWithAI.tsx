@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Card, Pie, BarList, type Bar, DARK, MID, LIGHT, PALE } from "./charts";
+import { Card, Pie, BarList, type Bar } from "./charts";
 import { PeopleChart } from "./AnimatedCharts";
 
 /* ---------- Card 1: 9 out of 10 use AI ---------- */

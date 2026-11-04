@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { ReactNode } from "react";
-import { Card, Pie, BarList, type Bar, DARK, MID, LIGHT, PALE } from "./charts";
+import { Card, Pie, BarList, type Bar } from "./charts";
 
 /** Pie with a short caption beside it on sm+, below it on phones */
 function PieWithCaption({
