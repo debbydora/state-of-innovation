@@ -89,7 +89,7 @@ export default function HeroIntro() {
       ))}
 
       <p
-        className="absolute inset-x-0 top-[35%] px-4 text-center font-mono text-xs tracking-[0.5em] whitespace-pre text-white transition-opacity duration-300 sm:text-base md:text-lg"
+        className="absolute inset-x-0 top-[35%] px-4 text-center font-mono text-sm tracking-[0.5em] whitespace-pre text-white font-bold transition-opacity duration-300 sm:text-base md:text-xl"
         style={{ opacity: phase === "lift" ? 0 : 1 }}
       >
         {shown}

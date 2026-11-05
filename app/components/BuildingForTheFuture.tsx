@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import FullscreenVideo from "./FullscreenVideo";
 import ExpertsCarousel, { Expert } from "./ExpertsCarousel";
 import DownloadReport, { REPORT_PDF } from "./DownloadReport";
 
@@ -103,8 +102,8 @@ const FUTURE_CARDS: FutureCard[] = [
 ];
 
 // TODO: replace with real URLs.
-const VIDEO_SRC = "/videos/documentary.mp4";
-const VIDEO_POSTER = "/images/documentary-thumb.jpg";
+// const VIDEO_SRC = "/videos/documentary.mp4";
+// const VIDEO_POSTER = "/images/documentary-thumb.jpg";
 
 export default function BuildingForTheFuture() {
   return (
@@ -190,7 +189,7 @@ export default function BuildingForTheFuture() {
       </div>
 
       {/* Documentary — clicking play zooms the video to full screen */}
-      <div className="mx-auto mt-16 max-w-4xl sm:mt-20 md:mt-32">
+      {/* <div className="mx-auto mt-16 max-w-4xl sm:mt-20 md:mt-32">
         <h3 className="font-archivo text-[clamp(1.5rem,4.5vw,3rem)] font-bold leading-tight">
           Watch the full documentary below
         </h3>
@@ -217,7 +216,7 @@ export default function BuildingForTheFuture() {
             title="State of Innovation documentary"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* CTA — diagonal bands come from behindBg.png */}
       <div className="relative -mx-4 mt-8 sm:mt-24 bg-[#1D141C] bg-[url('/images/behindBg.png')] bg-cover bg-center bg-no-repeat px-4 py-16 sm:-mx-6 sm:px-6 md:mt-32 md:py-24 lg:py-28 mb-32">
