@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import DocumentaryVideo from "./DocumentaryVideo";
+import FullscreenVideo from "./FullscreenVideo";
 import ExpertsCarousel, { Expert } from "./ExpertsCarousel";
 import DownloadReport, { REPORT_PDF } from "./DownloadReport";
-import ScrollZoom from "./ScrollZoom";
 
 // Quote cards are ready-made images in /public/images
 const EXPERTS: Expert[] = [
@@ -190,16 +189,12 @@ export default function BuildingForTheFuture() {
         </div>
       </div>
 
-      {/* Documentary — pins on arrival, then zooms in 3 scroll steps */}
-      <ScrollZoom
-        className="mt-10 sm:mt-20 md:mt-32"
-        title={
-          <h3 className="font-archivo text-[clamp(1.5rem,4.5vw,3rem)] font-bold leading-tight">
-            Watch the full documentary below
-          </h3>
-        }
-      >
-        <div className="relative px-4">
+      {/* Documentary — clicking play zooms the video to full screen */}
+      <div className="mx-auto mt-16 max-w-4xl sm:mt-20 md:mt-32">
+        <h3 className="font-archivo text-[clamp(1.5rem,4.5vw,3rem)] font-bold leading-tight">
+          Watch the full documentary below
+        </h3>
+        <div className="relative mt-8 px-4">
           <img
             src="/images/yellowStar.png"
             alt=""
@@ -216,13 +211,13 @@ export default function BuildingForTheFuture() {
             className="absolute -bottom-6 left-0  w-12 sm:-bottom-8 sm:w-16 lg:w-20"
           />
 
-          <DocumentaryVideo
+          <FullscreenVideo
             src={VIDEO_SRC}
             poster={VIDEO_POSTER}
             title="State of Innovation documentary"
           />
         </div>
-      </ScrollZoom>
+      </div>
 
       {/* CTA — diagonal bands come from behindBg.png */}
       <div className="relative -mx-4 mt-8 sm:mt-24 bg-[#1D141C] bg-[url('/images/behindBg.png')] bg-cover bg-center bg-no-repeat px-4 py-16 sm:-mx-6 sm:px-6 md:mt-32 md:py-24 lg:py-28 mb-32">

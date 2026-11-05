@@ -1,15 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-  Card,
-  Pie,
-  BarList,
-  type Bar,
-  type Segment,
-  DARK,
-  MID,
-  LIGHT,
-  PALE,
-} from "./charts";
+import { Card, Pie, BarList, type Bar, type Segment, MID } from "./charts";
 
 /* ---------- Card 1: belief vs funding ---------- */
 

@@ -156,7 +156,7 @@ export default function BankingOnTheBuilder() {
     <section
       id="banking"
       aria-labelledby="banking-heading"
-      className="relative isolate overflow-hidden bg-brand bg-[url('/images/AiBg.png')] bg-cover bg-center px-4 py-14 sm:px-6 md:py-20 lg:py-24"
+      className="relative isolate overflow-hidden bg-brand bg-[url('/images/AIBg.png')] bg-cover bg-center px-4 py-14 sm:px-6 md:py-20 lg:py-24"
     >
       {/* Newspaper scrap, bottom-left corner */}
       <img

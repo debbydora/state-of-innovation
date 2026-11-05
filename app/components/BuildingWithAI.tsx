@@ -100,7 +100,7 @@ export default function BuildingWithAI() {
     <section
       id="ai"
       aria-labelledby="ai-heading"
-      className="relative isolate overflow-hidden bg-brand bg-[url('/images/AiBg.png')] bg-cover bg-center px-4 py-14 sm:px-6 md:py-20 lg:py-24"
+      className="relative isolate overflow-hidden bg-brand bg-[url('/images/AIBg.png')] bg-cover bg-center px-4 py-14 sm:px-6 md:py-20 lg:py-24"
     >
       <div className="relative mx-auto max-w-4xl">
         {/* Hourglass, top-right of the heading */}
